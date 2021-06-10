@@ -5,6 +5,10 @@ module TweetsHelper
       prevent_default_error_handling
     when "custom_event"
       custom_event_error_handling
+    when "without_turbo"
+      without_turbo_error_handling
+    else
+      {}
     end
   end
 
@@ -25,6 +29,18 @@ module TweetsHelper
         action: "error->custom-event#handleError"
       },
       url: tweets_url(error_handling_test: "custom_event")
+    }
+  end
+
+  def without_turbo_error_handling
+    {
+      data: {
+        controller: "without-turbo",
+        without_turbo_success_path: tweets_url(error_handling_test: "without_turbo"),
+        action: "ajax:error->without-turbo#handleError ajax:success->without-turbo#handleSuccess"
+      },
+      local: false,
+      url: tweets_url(error_handling_test: "without_turbo")
     }
   end
 end

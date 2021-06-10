@@ -27,8 +27,9 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to tweets_url(error_handling_test: params[:error_handling_test]), notice: "Tweet was successfully created." }
+        flash[:notice] = "Tweet was successfully created"
         format.json { render :show, status: :created, location: @tweet }
+        format.html { redirect_to tweets_url(error_handling_test: params[:error_handling_test]) }
       else
         error_response(format)
       end
@@ -74,6 +75,8 @@ class TweetsController < ApplicationController
         format.turbo_stream { render json: @tweet.errors, status: :unprocessable_entity }
       when "custom_event"
         format.turbo_stream { render "pass_error" }
+      when "without_turbo"
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
       end
     end
 end
