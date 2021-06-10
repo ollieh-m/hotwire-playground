@@ -1,0 +1,26 @@
+version: '3.5'
+services:
+  mysql:
+    image: mysql:5.6
+    volumes:
+      - ~/docker/volumes/hotwire-demo_mysql:/var/lib/mysql
+    ports:
+      - 3306
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    command: --character-set-server=utf8mb4 --innodb_file_per_table --innodb_large_prefix --innodb_file_format=barracuda
+    networks:
+      - hotwire-demo
+  redis:
+    image: redis:4.0-alpine
+    ports:
+      - 6379
+    volumes:
+      - ~/docker/volumes/hotwire-demo_redis:/data
+    networks:
+      - hotwire-demo
+volumes:
+  bundle:
+networks:
+  hotwire-demo:
+    name: hotwire-demo

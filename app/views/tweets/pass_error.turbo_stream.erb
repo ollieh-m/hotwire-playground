@@ -1,0 +1,4 @@
+<%= turbo_stream.append "tweet_form" do %>
+  <div data-controller="pass-error" data-pass-error-payload-value="<%= @tweet.errors.to_json %>">
+  </div>
+<% end %>

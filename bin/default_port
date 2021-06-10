@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require "mkmf"
+require "open3"
+
+DEFAULTS = {
+  "redis" => "6379",
+  "mysql" => "3306"
+}.freeze
+
+service = ARGV[0]
+
+if executable = find_executable0("docker-compose")
+  output, _, status = Open3.capture3(executable, "port", service, DEFAULTS[service])
+  if status.exitstatus == 0
+    print output.chomp.gsub(/.+:(\d+)/, '\1')
+  else
+    print DEFAULTS[service]
+  end
+else
+  print DEFAULTS[service]
+end

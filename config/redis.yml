@@ -1,0 +1,6 @@
+development:
+  url: <%= ENV.fetch('REDIS_URL', 'redis://localhost:6379') %>
+test:
+  url: "redis://test:6379"
+production:
+  url: "<%= ENV['REDIS_URL'] %>"
