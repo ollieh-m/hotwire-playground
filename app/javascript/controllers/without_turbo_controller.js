@@ -11,7 +11,7 @@ export default class extends Controller {
   }
 
   handleSuccess(event) {
-    Turbo.visit(this.successPathValue, { action: "replace" })
+    Turbo.visit(this.successPathValue)
   }
 
   handleError(event) {

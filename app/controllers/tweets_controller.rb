@@ -10,7 +10,7 @@ class TweetsController < ApplicationController
     respond_to do |format|
       if @tweet.save
         flash[:notice] = "Successfully created"
-        format.json { render :show, status: :created, location: @tweet }
+        format.json { render :show, status: :created }
         format.html { redirect_to tweets_url(error_handling_test: params[:error_handling_test]) }
       else
         error_response(format)
