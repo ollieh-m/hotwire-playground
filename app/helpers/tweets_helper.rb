@@ -16,7 +16,7 @@ module TweetsHelper
     {
       data: {
         controller: "prevent-default",
-        action: "turbo:before-fetch-response@document->prevent-default#preventDefault"
+        action: "turbo:before-fetch-response->prevent-default#preventDefault"
       },
       url: tweets_url(error_handling_test: "prevent_default")
     }
