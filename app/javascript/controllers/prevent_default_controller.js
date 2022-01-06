@@ -10,9 +10,12 @@ export default class extends Controller {
     // Listening for turbo:before-fetch-response.
     // The response is available here and we can block Turbo's default behaviour.
     if (!event.detail.fetchResponse.succeeded) {
+      // Note that if the response content-type is turbo-stream or the status is 4XX or 5XX,
+      // Turbo's default behaviour won't error anyway -
+      // so we could use the JSON and _allow_ the default behaviour
       event.preventDefault()
 
-      // (Turbo itself uses clone() when reading the response, so the response is never locked)
+      // Turbo itself uses clone() when reading the response, so the response is never locked
       const json = await event.detail.fetchResponse.response.clone().json()
       console.log("Do stuff with the json...", json)
     }
